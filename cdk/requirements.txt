@@ -1,0 +1,4 @@
+-e .
+pytest
+boto3
+pyyaml

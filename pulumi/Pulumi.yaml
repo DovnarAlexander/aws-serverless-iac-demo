@@ -1,0 +1,4 @@
+name: community-z
+runtime:
+  name: python
+description: Serverless demo

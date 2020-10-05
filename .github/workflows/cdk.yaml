@@ -1,0 +1,37 @@
+---
+
+name: CDK
+
+on:
+  push:
+    branches: master
+
+jobs:
+  apply:
+    name: CDK deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cdk
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+          npm install -g aws-cdk
+      - name: Run CDK
+        run: |
+          cdk diff
+          cdk deploy --require-approval=never
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

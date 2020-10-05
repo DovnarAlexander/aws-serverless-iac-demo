@@ -1,0 +1,12 @@
+---
+
+name: IAC-Demo
+description: 'IAC Application'
+
+telegram:
+  start:
+    description: Start
+  reset:
+    description: Reset
+  help:
+    description: Help me man
