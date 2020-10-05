@@ -1,0 +1,51 @@
+---
+
+terraform:
+  vpc: 10.0.0.0/16
+  subnets:
+    public:
+      - 10.0.10.0/24
+      - 10.0.11.0/24
+    private:
+      - 10.0.20.0/24
+      - 10.0.21.0/24
+pulumi:
+  vpc: 10.1.0.0/16
+  subnets:
+    public:
+      - 10.1.10.0/24
+      - 10.1.11.0/24
+    private:
+      - 10.1.20.0/24
+      - 10.1.21.0/24
+cdk:
+  vpc: 10.2.0.0/16
+  subnets:
+    public:
+      - 10.2.10.0/24
+      - 10.2.11.0/24
+    private:
+      - 10.2.20.0/24
+      - 10.2.21.0/24
+# Common
+iam:
+  assume:
+    Version: '2012-10-17'
+    Statement:
+      - Action: sts:AssumeRole
+        Principal:
+          Service: lambda.amazonaws.com
+        Effect: Allow
+        Sid: ''
+  policy:
+    Version: '2012-10-17'
+    Statement:
+      - Effect: Allow
+        Action:
+          - ec2:DescribeNetworkInterfaces
+          - ec2:CreateNetworkInterface
+          - ec2:DeleteNetworkInterface
+          - ec2:DescribeInstances
+          - ec2:AttachNetworkInterface
+        Resource:
+          - '*'

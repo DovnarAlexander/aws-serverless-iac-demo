@@ -1,2 +1,6 @@
 # Local Shell files
 *.sh
+# Local archives
+*.zip
+# Idea
+.idea

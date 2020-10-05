@@ -5,10 +5,16 @@ terraform {
       version = "~> 3.0"
     }
   }
+  backend "s3" {
+    bucket  = "cloudevescops-zdays"
+    encrypt = true
+    key     = "terraform.tfstate"
+    region  = "us-east-1"
+    # Locking
+    dynamodb_table = "cloudevescops-zdays"
+  }
 }
 
 provider "aws" {
   region = "us-east-1"
 }
-
-provider "telegram" {}
