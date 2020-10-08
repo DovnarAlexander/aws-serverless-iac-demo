@@ -1,19 +1,18 @@
 ---
 
-name: Terraform
+name: S3 bucket
 
 on:
-  push:
+  pull_request:
     branches: master
-  workflow_dispatch:
 
 jobs:
-  apply:
-    name: Terraform apply
+  s3:
+    name: Terraform apply for s3
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform
+        working-directory: s3
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -29,3 +28,11 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Put comment
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **S3 bucket is privisoned!**
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          allow-repeats: true
