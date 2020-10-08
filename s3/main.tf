@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "cloudevescops-zdays"
+  bucket = "cloudevescops-zdays-demo"
   force_destroy = true
   versioning {
     enabled = true
@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "terraform_state" {
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "cloudevescops-zdays"
+  name           = "cloudevescops-zdays-demo"
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "LockID"
