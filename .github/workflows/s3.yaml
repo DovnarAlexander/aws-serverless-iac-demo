@@ -3,7 +3,8 @@
 name: S3 bucket
 
 on:
-  pull_request_review_comment:
+  pull_request_target:
+    types: [labeled]
 
 jobs:
   s3:
