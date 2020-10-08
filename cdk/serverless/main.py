@@ -153,12 +153,12 @@ class Main(core.Stack):
         # Lambda
         shutil.make_archive("../lambda", 'zip', "../lambda/")
         s3_client = boto3.client('s3')
-        s3_client.upload_file("../lambda.zip", "cloudevescops-zdays", "cdk.zip")
+        s3_client.upload_file("../lambda.zip", "cloudevescops-zdays-demo", "cdk.zip")
         function = lmd.CfnFunction(
             self, id="lambda_function", handler="lambda.lambda_handler",
             role=role.attr_arn, runtime="python3.7",
             code={
-                "s3Bucket": "cloudevescops-zdays",
+                "s3Bucket": "cloudevescops-zdays-demo",
                 "s3Key": "cdk.zip"
             },
             vpc_config={
