@@ -25,7 +25,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run Pulumi
         run: |
-          pulumi login s3://"cloudevescops-zdays-demo"
+          pulumi login s3://"cloudevescops-zdays-demo-session"
           pulumi stack init prod || pulumi stack select prod
           pulumi refresh --yes
           pulumi preview

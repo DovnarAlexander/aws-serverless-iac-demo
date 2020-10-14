@@ -6,12 +6,12 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "cloudevescops-zdays-demo"
+    bucket  = "cloudevescops-zdays-demo-session"
     encrypt = true
     key     = "terraform.tfstate"
     region  = "us-east-1"
     # Locking
-    dynamodb_table = "cloudevescops-zdays-demo"
+    dynamodb_table = "cloudevescops-zdays-demo-session"
   }
 }
 

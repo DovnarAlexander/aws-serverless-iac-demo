@@ -1,7 +1,7 @@
 locals {
   lb_rules = {
     x = {
-      type = "ingress"
+      type        = "ingress"
       description = "HTTP from Internet"
       from_port   = 80
       to_port     = 80
@@ -9,11 +9,11 @@ locals {
       cidr_blocks = ["0.0.0.0/0"]
     },
     y = {
-      type = "egress"
-      description = "LB to Lambda"
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
+      type                     = "egress"
+      description              = "LB to Lambda"
+      from_port                = 80
+      to_port                  = 80
+      protocol                 = "tcp"
       source_security_group_id = aws_security_group.lambda.id
     }
   }
@@ -26,15 +26,15 @@ resource "aws_security_group" "lb" {
 }
 
 resource "aws_security_group_rule" "lb" {
-  for_each = local.lb_rules
-  type              = each.value.type
-  from_port         = each.value.from_port
-  to_port           = each.value.to_port
-  protocol          = each.value.protocol
-  cidr_blocks       = lookup(each.value, "cidr_blocks", null)
-  source_security_group_id       = lookup(each.value, "source_security_group_id", null)
-  self = lookup(each.value, "self", null)
-  security_group_id = aws_security_group.lb.id
+  for_each                 = local.lb_rules
+  type                     = each.value.type
+  from_port                = each.value.from_port
+  to_port                  = each.value.to_port
+  protocol                 = each.value.protocol
+  cidr_blocks              = lookup(each.value, "cidr_blocks", null)
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
+  self                     = lookup(each.value, "self", null)
+  security_group_id        = aws_security_group.lb.id
 }
 
 resource "aws_lb" "this" {
@@ -53,13 +53,13 @@ resource "aws_lambda_permission" "allow_elb" {
 }
 
 resource "aws_lb_target_group" "lambda" {
-  name     = "lambda"
+  name        = "lambda"
   target_type = "lambda"
   health_check {
-    enabled = true
-    path = "/"
-    matcher = 200
-    timeout = 30
+    enabled  = true
+    path     = "/"
+    matcher  = 200
+    timeout  = 30
     interval = 40
   }
 }
@@ -67,7 +67,7 @@ resource "aws_lb_target_group" "lambda" {
 resource "aws_lb_target_group_attachment" "lambda" {
   target_group_arn = aws_lb_target_group.lambda.arn
   target_id        = aws_lambda_function.this.arn
-  depends_on = [aws_lambda_permission.allow_elb]
+  depends_on       = [aws_lambda_permission.allow_elb]
 }
 
 resource "aws_lb_listener" "this" {
